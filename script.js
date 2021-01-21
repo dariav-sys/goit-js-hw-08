@@ -3,7 +3,7 @@ import galleryItems from "./gallery-images.js";
 const listGalleryRef = document.querySelector(".js-gallery");
 const modalRef = document.querySelector(".js-lightbox");
 const imageModalRef = document.querySelector(".lightbox__image");
-const overlayRef = document.querySelector(".lightbox__overlay");
+// const overlayRef = document.querySelector(".lightbox__overlay");
 const closeButtonRef = document.querySelector("button[data-action='close-lightbox']")
 
 // console.log(image)
@@ -53,14 +53,16 @@ function openModal(event) {
   modalRef.classList.add("is-open");
   imageModalRef.src = event.target.dataset.source;
   imageModalRef.alt = event.target.alt;
-  console.log(imageModalRef.alt)
+  
 }
 
 
 function closeModal(event) {  
   event.preventDefault();
   if (event.target.nodeName === "BUTTON") {
-		modalRef.classList.remove("is-open");
+    modalRef.classList.remove("is-open");
+    imageModalRef.src = '';
   };
+  
   
 }
