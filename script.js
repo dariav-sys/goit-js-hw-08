@@ -31,28 +31,21 @@ function createGallery(galleryItems) {
 
 createGallery(galleryItems);
 
-
 listGalleryRef.addEventListener("click", imageClickHandler);
-
-
-
 
 let activeIndex;
 
 function imageClickHandler(event) {
-
-	event.preventDefault();	
+	event.preventDefault();
 	closeButtonRef.addEventListener("click", closeBtnClickHandler);
 	window.addEventListener("keydown", keyboardInputHandler);
-	activeIndex = event.target.dataset.index;		
+	activeIndex = event.target.dataset.index;
 	if (event.target.nodeName !== "IMG") {
 		return;
 	}
 	modalRef.classList.add("is-open");
 	imageModalRef.src = event.target.dataset.source;
 	imageModalRef.alt = event.target.alt;
-
-	
 }
 
 overlayRef.addEventListener("click", () => {
@@ -60,32 +53,24 @@ overlayRef.addEventListener("click", () => {
 });
 
 function closeBtnClickHandler() {
-	
-	
-	
-		modalRef.classList.remove("is-open");
-		imageModalRef.src = "";
-	
+	modalRef.classList.remove("is-open");
+	imageModalRef.src = "";
 }
 
 function keyboardInputHandler(event) {
-	
-	if (event.code === 'Escape') {
+	if (event.code === "Escape") {
 		modalRef.classList.remove("is-open");
-		imageModalRef.src = "";	
-		window.removeEventListener("keydown", keyboardInputHandler)
+		imageModalRef.src = "";
+		window.removeEventListener("keydown", keyboardInputHandler);
 	}
-	
-	if (event.code === 'ArrowLeft' && activeIndex > 1) {      
+
+	if (event.code === "ArrowLeft" && activeIndex > 1) {
 		activeIndex = parseInt(activeIndex) - 1;
-		imageModalRef.src = "";	
-		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
-		
-	} else if (event.code === 'ArrowRight' && activeIndex < galleryItems.length) {
+		imageModalRef.src = "";
+		imageModalRef.setAttribute("src", galleryItems[activeIndex - 1].original);
+	} else if (event.code === "ArrowRight" && activeIndex < galleryItems.length) {
 		activeIndex = parseInt(activeIndex) + 1;
-		imageModalRef.src = "";	
-		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
-		
+		imageModalRef.src = "";
+		imageModalRef.setAttribute("src", galleryItems[activeIndex - 1].original);
 	}
-	
 }
