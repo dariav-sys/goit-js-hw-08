@@ -60,26 +60,57 @@ function closeModal() {
 	imageModalRef.src = "";
 }
 
-function keyboardInputHandler(event) {
-	if (event.code === "Escape") {
-		modalRef.classList.remove("is-open");
-		imageModalRef.src = "";
-		window.removeEventListener("keydown", keyboardInputHandler);
-	}
 
-	if (event.code === "ArrowLeft" && activeIndex > 1) {
-		activeIndex = parseInt(activeIndex) - 1;
-		imageModalRef.src = "";
-		imageModalRef.setAttribute('src',galleryItems[activeIndex - 1].original)
-		
-	}
-	
-	if (event.code === "ArrowRight" && activeIndex < galleryItems.length-1) {		
-		activeIndex = parseInt(activeIndex) + 1;		
-		imageModalRef.src = "";
-		imageModalRef.setAttribute('src',galleryItems[activeIndex].original)
-		
+function keyboardInputHandler(event) {
+	switch (event.code) {
+		case "Escape":
+			modalRef.classList.remove("is-open");
+			imageModalRef.src = "";
+			window.removeEventListener("keydown", keyboardInputHandler);
+			break;
+			
+		case ("ArrowLeft"):
+			activeIndex > 1 ? activeIndex = parseInt(activeIndex) - 1 : '';
+			imageModalRef.src = "";
+			imageModalRef.setAttribute('src', galleryItems[activeIndex - 1].original);
+			break;
+
+		case ("ArrowRight"):
+			(activeIndex < galleryItems.length - 1) ? activeIndex = parseInt(activeIndex) + 1 : '';
+			imageModalRef.src = "";
+			imageModalRef.setAttribute('src', galleryItems[activeIndex].original)
+			break;
 	}
 }
 
-console.log(galleryItems)
+//-------------WITH IF
+
+// function keyboardInputHandler(event) {
+// 	if (event.code === "Escape") {
+// 		modalRef.classList.remove("is-open");
+// 		imageModalRef.src = "";
+// 		window.removeEventListener("keydown", keyboardInputHandler);
+// 	}
+
+// 	if (event.code === "ArrowLeft" && activeIndex > 1) {
+// 		activeIndex = parseInt(activeIndex) - 1;
+// 		imageModalRef.src = "";
+// 		imageModalRef.setAttribute('src',galleryItems[activeIndex - 1].original)
+		
+// 	}
+	
+// 	if (event.code === "ArrowRight" && activeIndex < galleryItems.length-1) {		
+// 		activeIndex = parseInt(activeIndex) + 1;		
+// 		imageModalRef.src = "";
+// 		imageModalRef.setAttribute('src',galleryItems[activeIndex].original)
+		
+// 	}
+// }
+
+
+
+
+
+
+
+
