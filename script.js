@@ -33,14 +33,17 @@ createGallery(galleryItems);
 
 
 listGalleryRef.addEventListener("click", imageClickHandler);
-closeButtonRef.addEventListener("click", closeBtnClickHandler);
-window.addEventListener("keydown", keyboardInputHandler);
+
+
 
 
 let activeIndex;
 
 function imageClickHandler(event) {
+
 	event.preventDefault();	
+	closeButtonRef.addEventListener("click", closeBtnClickHandler);
+	window.addEventListener("keydown", keyboardInputHandler);
 	activeIndex = event.target.dataset.index;		
 	if (event.target.nodeName !== "IMG") {
 		return;
@@ -56,28 +59,33 @@ overlayRef.addEventListener("click", () => {
 	modalRef.classList.remove("is-open");
 });
 
-function closeBtnClickHandler(event) {
-	event.preventDefault();
-	if (event.target.nodeName === "BUTTON") {
+function closeBtnClickHandler() {
+	
+	
+	
 		modalRef.classList.remove("is-open");
 		imageModalRef.src = "";
-	}
+	
 }
 
-function keyboardInputHandler(event) {	
+function keyboardInputHandler(event) {
+	
 	if (event.code === 'Escape') {
 		modalRef.classList.remove("is-open");
-		imageModalRef.src = "";		
+		imageModalRef.src = "";	
+		window.removeEventListener("keydown", keyboardInputHandler)
 	}
 	
 	if (event.code === 'ArrowLeft' && activeIndex > 1) {      
 		activeIndex = parseInt(activeIndex) - 1;
+		imageModalRef.src = "";	
 		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
-		console.log(imageModalRef.src );
+		
 	} else if (event.code === 'ArrowRight' && activeIndex < galleryItems.length) {
 		activeIndex = parseInt(activeIndex) + 1;
+		imageModalRef.src = "";	
 		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
-		console.log('ArrowRight');
+		
 	}
 	
 }
