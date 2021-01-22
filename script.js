@@ -3,20 +3,15 @@ import galleryItems from "./gallery-images.js";
 const listGalleryRef = document.querySelector(".js-gallery");
 const modalRef = document.querySelector(".js-lightbox");
 const imageModalRef = document.querySelector(".lightbox__image");
-// const overlayRef = document.querySelector(".lightbox__overlay");
-const closeButtonRef = document.querySelector("button[data-action='close-lightbox']")
-
-// console.log(image)
-
-// console.log(gallery)
+const overlayRef = document.querySelector(".lightbox__overlay");
+const closeButtonRef = document.querySelector(
+	"button[data-action='close-lightbox']"
+);
 
 function createGallery(galleryItems) {
-  let template = '';
-
-  
-
-  galleryItems.forEach(({preview,original,description},index) => {
-    template += ` <li class="gallery__item">
+	let template = "";
+	galleryItems.forEach(({ preview, original, description }, index) => {
+		template += ` <li class="gallery__item">
   <a
     class="gallery__link"
     href=${original};
@@ -29,40 +24,60 @@ function createGallery(galleryItems) {
       alt="${description}"
     />
   </a>
-  </li>`
-    
-  });
+  </li>`;
+	});
+	listGalleryRef.innerHTML = template;
+}
 
-  listGalleryRef.innerHTML = template;
+createGallery(galleryItems);
+
+
+listGalleryRef.addEventListener("click", imageClickHandler);
+closeButtonRef.addEventListener("click", closeBtnClickHandler);
+window.addEventListener("keydown", keyboardInputHandler);
+
+
+let activeIndex;
+
+function imageClickHandler(event) {
+	event.preventDefault();	
+	activeIndex = event.target.dataset.index;		
+	if (event.target.nodeName !== "IMG") {
+		return;
+	}
+	modalRef.classList.add("is-open");
+	imageModalRef.src = event.target.dataset.source;
+	imageModalRef.alt = event.target.alt;
+
 	
 }
 
-createGallery(galleryItems)
+overlayRef.addEventListener("click", () => {
+	modalRef.classList.remove("is-open");
+});
 
-
-
-listGalleryRef.addEventListener("click", openModal);
-closeButtonRef.addEventListener('click', closeModal);
-
-function openModal(event) {   
+function closeBtnClickHandler(event) {
 	event.preventDefault();
-	if (event.target.nodeName !== "IMG") {
-		return;
-  };
-
-  modalRef.classList.add("is-open");
-  imageModalRef.src = event.target.dataset.source;
-  imageModalRef.alt = event.target.alt;
-  
+	if (event.target.nodeName === "BUTTON") {
+		modalRef.classList.remove("is-open");
+		imageModalRef.src = "";
+	}
 }
 
-
-function closeModal(event) {  
-  event.preventDefault();
-  if (event.target.nodeName === "BUTTON") {
-    modalRef.classList.remove("is-open");
-    imageModalRef.src = '';
-  };
-  
-  
+function keyboardInputHandler(event) {	
+	if (event.code === 'Escape') {
+		modalRef.classList.remove("is-open");
+		imageModalRef.src = "";		
+	}
+	
+	if (event.code === 'ArrowLeft' && activeIndex > 1) {      
+		activeIndex = parseInt(activeIndex) - 1;
+		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
+		console.log(imageModalRef.src );
+	} else if (event.code === 'ArrowRight' && activeIndex < galleryItems.length) {
+		activeIndex = parseInt(activeIndex) + 1;
+		imageModalRef.setAttribute('src', galleryItems[activeIndex-1].original)
+		console.log('ArrowRight');
+	}
+	
 }
