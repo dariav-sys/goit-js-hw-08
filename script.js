@@ -70,14 +70,14 @@ function keyboardInputHandler(event) {
 	if (event.code === "ArrowLeft" && activeIndex > 1) {
 		activeIndex = parseInt(activeIndex) - 1;
 		imageModalRef.src = "";
-		imageModalRef.src = galleryItems[activeIndex - 1].original;
+		imageModalRef.setAttribute('src',galleryItems[activeIndex - 1].original)
 		
 	}
 	
-	if (event.code === "ArrowRight" && activeIndex < galleryItems.length) {
-		activeIndex = parseInt(activeIndex) + 1;
+	if (event.code === "ArrowRight" && activeIndex < galleryItems.length-1) {		
+		activeIndex = parseInt(activeIndex) + 1;		
 		imageModalRef.src = "";
-		imageModalRef.src = galleryItems[activeIndex + 1].original;
+		imageModalRef.setAttribute('src',galleryItems[activeIndex].original)
 		
 	}
 }
