@@ -37,7 +37,7 @@ let activeIndex;
 
 function imageClickHandler(event) {
 	event.preventDefault();
-	closeButtonRef.addEventListener("click", closeBtnClickHandler);
+	closeButtonRef.addEventListener("click", closeModal);
 	window.addEventListener("keydown", keyboardInputHandler);
 	activeIndex = event.target.dataset.index;
 	if (event.target.nodeName !== "IMG") {
@@ -46,13 +46,16 @@ function imageClickHandler(event) {
 	modalRef.classList.add("is-open");
 	imageModalRef.src = event.target.dataset.source;
 	imageModalRef.alt = event.target.alt;
-}
+	
 
-overlayRef.addEventListener("click", () => {
+	overlayRef.addEventListener("click", () => {
 	modalRef.classList.remove("is-open");
 });
+}
 
-function closeBtnClickHandler() {
+
+
+function closeModal() {
 	modalRef.classList.remove("is-open");
 	imageModalRef.src = "";
 }
@@ -67,10 +70,16 @@ function keyboardInputHandler(event) {
 	if (event.code === "ArrowLeft" && activeIndex > 1) {
 		activeIndex = parseInt(activeIndex) - 1;
 		imageModalRef.src = "";
-		imageModalRef.setAttribute("src", galleryItems[activeIndex - 1].original);
-	} else if (event.code === "ArrowRight" && activeIndex < galleryItems.length) {
+		imageModalRef.src = galleryItems[activeIndex - 1].original;
+		
+	}
+	
+	if (event.code === "ArrowRight" && activeIndex < galleryItems.length) {
 		activeIndex = parseInt(activeIndex) + 1;
 		imageModalRef.src = "";
-		imageModalRef.setAttribute("src", galleryItems[activeIndex - 1].original);
+		imageModalRef.src = galleryItems[activeIndex + 1].original;
+		
 	}
 }
+
+console.log(galleryItems)
