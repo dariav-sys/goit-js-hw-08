@@ -70,13 +70,17 @@ function keyboardInputHandler(event) {
 			break;
 			
 		case ("ArrowLeft"):
-			activeIndex > 1 ? activeIndex = parseInt(activeIndex) - 1 : '';
+			activeIndex = (parseInt(activeIndex) - 1);
+			activeIndex = activeIndex < 0 ? galleryItems.length - 1 : activeIndex;
+			//activeIndex > 1 ? activeIndex = parseInt(activeIndex) - 1 : '';
 			imageModalRef.src = "";
-			imageModalRef.setAttribute('src', galleryItems[activeIndex - 1].original);
+			imageModalRef.setAttribute('src', galleryItems[activeIndex].original);
 			break;
 
 		case ("ArrowRight"):
-			(activeIndex < galleryItems.length - 1) ? activeIndex = parseInt(activeIndex) + 1 : '';
+			activeIndex = (parseInt(activeIndex) + 1)
+			activeIndex = activeIndex == galleryItems.length ? 0 : activeIndex;
+			//(activeIndex < galleryItems.length - 1) ? activeIndex = parseInt(activeIndex) + 1 : '';
 			imageModalRef.src = "";
 			imageModalRef.setAttribute('src', galleryItems[activeIndex].original)
 			break;
@@ -95,7 +99,7 @@ function keyboardInputHandler(event) {
 // 	if (event.code === "ArrowLeft" && activeIndex > 1) {
 // 		activeIndex = parseInt(activeIndex) - 1;
 // 		imageModalRef.src = "";
-// 		imageModalRef.setAttribute('src',galleryItems[activeIndex - 1].original)
+// 		imageModalRef.setAttribute('src',galleryItems[activeIndex].original)
 		
 // 	}
 	
